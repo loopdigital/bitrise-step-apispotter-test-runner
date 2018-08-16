@@ -1,0 +1,88 @@
+
+title: |-
+  ApiSpotter Test Group Runner
+summary: |
+  Run your ApiSpotter tests and get the test result to your Bitrise build.
+description: |
+  ApiSpotter (https://apispotter.com) is an online tool for testing, monitoring and documenting your API systems.
+  It makes you sure that your API's are up and running as they should.
+
+  Use this step to run your test groups on APISpotter and retrieve their results.
+  Make sure your API's are working before build complete.
+
+website: https://github.com/loopdigital/bitrise-step-apispotter-test-runner
+source_code_url: https://github.com/loopdigital/bitrise-step-apispotter-test-runner
+support_url: https://github.com/loopdigital/bitrise-step-apispotter-test-runner/issues
+host_os_tags:
+  - osx-10.10
+  - ubuntu-16.04
+
+
+
+project_type_tags:
+
+
+
+type_tags:
+  - utility
+
+is_requires_admin_user: true
+is_always_run: true
+is_skippable: false
+run_if: ""
+
+deps:
+
+
+
+toolkit:
+  bash:
+    entry_file: step.sh
+
+
+inputs:
+  - apispotter_api_token: 
+    opts:
+      title: "ApiSpotter User API Token"
+      description: |
+        Your user API token from ApiSpotter.
+        You can get it from your account settings page.
+
+      is_expand: true
+      is_required: true
+
+  - apispotter_test_group_id: 
+    opts:
+      title: "Test Group ID"
+      description: |
+        The ID of the test group you would like to run.
+      is_expand: true
+      is_required: true
+
+  - abort_build: "no"
+    opts:
+      title: "Abort The Current Build"
+      summary: Abort the current build if we detect that your API's having some troubles.
+      description: |
+        Abort the current build if we detect that your API's having some troubles.
+
+        With this option set to 'no', build will not be aborted if the test result is false, it will only abort when a fatal error occur. (Like internal errors or exceptions, if we can't run the test group.) 
+        If you set this option to 'yes', build will be aborted when the retrieved test result is false too. 
+      value_options: 
+      - "yes"
+      - "no"
+
+
+outputs:
+  - AS_RUN_RESULT: 
+    opts:
+      title: "Test Group Run Result"
+      description: |
+        Boolean value of the requested test group run result.
+  
+  - AS_ERROR_MESSAGE:
+    opts:
+      title: "Error Message"
+      description: |
+        If any type of error occurs in the process, you can retrieve the error message with this variable. 
+     
